@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classes — Kalasheel Dance Studio</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+
+  <nav class="nav" id="navbar">
+    <a href="../index.html" class="nav__logo">
+      <span class="nav__logo-main">Kalasheel</span>
+      <span class="nav__logo-sub">est. 2019</span>
+    </a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu">&#9776;</button>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="../index.html" class="nav__link" onclick="trackNav('Home')">Home</a></li>
+      <li><a href="classes.html" class="nav__link active" onclick="trackNav('Classes')">Classes</a></li>
+      <li><a href="about.html" class="nav__link" onclick="trackNav('About')">About</a></li>
+      <li><a href="#enroll" class="nav__cta" onclick="trackNav('Enroll CTA Nav')">Join Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <header class="page-hero">
+    <div class="page-hero__content">
+      <span class="section__label">What We Offer</span>
+      <h1 class="page-hero__title">Every body<br/>has a dance.</h1>
+      <p>We offer 12 styles across beginner, intermediate and advanced levels. Find yours.</p>
+    </div>
+  </header>
+
+  <!-- FILTER TABS -->
+  <section class="filter-section section">
+    <div class="filter-tabs" role="group" aria-label="Filter by category">
+      <button class="filter-tab active" onclick="filterClasses('all', this)">All Styles</button>
+      <button class="filter-tab" onclick="filterClasses('classical', this)">Classical</button>
+      <button class="filter-tab" onclick="filterClasses('modern', this)">Modern</button>
+      <button class="filter-tab" onclick="filterClasses('fusion', this)">Fusion</button>
+      <button class="filter-tab" onclick="filterClasses('kids', this)">Kids</button>
+    </div>
+
+    <div class="class-grid class-grid--full" id="classGrid">
+
+      <article class="class-card class-card--detail" data-category="classical" onclick="trackCardClick('Bharatanatyam')">
+        <div class="class-card__header">
+          <div class="class-card__icon">𝄞</div>
+          <span class="class-card__tag">Classical</span>
+        </div>
+        <h3 class="class-card__title">Bharatanatyam</h3>
+        <p class="class-card__desc">South Indian classical dance rooted in Hindu temple traditions. Combines nritta (pure dance), nritya (expression) and natya (drama). A complete art form.</p>
+        <ul class="class-card__meta">
+          <li>⏱ 90 min/session</li>
+          <li>📅 Tue & Thu</li>
+          <li>👤 All levels</li>
+        </ul>
+        <a href="#enroll" class="btn btn--outline btn--sm" onclick="trackEnroll('Bharatanatyam')">Enroll</a>
+      </article>
+
+      <article class="class-card class-card--detail" data-category="classical" onclick="trackCardClick('Kathak')">
+        <div class="class-card__header">
+          <div class="class-card__icon">✦</div>
+          <span class="class-card__tag">Classical</span>
+        </div>
+        <h3 class="class-card__title">Kathak</h3>
+        <p class="class-card__desc">Northern Indian classical dance known for its intricate footwork, fast spins and storytelling through expression. Poetry in motion.</p>
+        <ul class="class-card__meta">
+          <li>⏱ 75 min/session</li>
+          <li>📅 Mon & Wed</li>
+          <li>👤 Beginner–Advanced</li>
+        </ul>
+        <a href="#enroll" class="btn btn--outline btn--sm" onclick="trackEnroll('Kathak')">Enroll</a>
+      </article>
+
+      <article class="class-card class-card--detail" data-category="classical" onclick="trackCardClick('Odissi')">
+        <div class="class-card__header">
+          <div class="class-card__icon">🌸</div>
+          <span class="class-card__tag">Classical</span>
+        </div>
+        <h3 class="class-card__title">Odissi</h3>
+        <p class="class-card__desc">Lyrical, graceful form from Odisha. Known for its tribhanga posture and fluid torso movements. Deeply expressive and meditative.</p>
+        <ul class="class-card__meta">
+          <li>⏱ 90 min/session</li>
+          <li>📅 Sat mornings</li>
+          <li>👤 Beginner–Intermediate</li>
+        </ul>
+        <a href="#enroll" class="btn btn--outline btn--sm" onclick="trackEnroll('Odissi')">Enroll</a>
+      </article>
+
+      <article class="class-card class-card--detail" data-category="modern" onclick="trackCardClick('Contemporary')">
+        <div class="class-card__header">
+          <div class="class-card__icon">◎</div>
+          <span class="class-card__tag">Modern</span>
+        </div>
+        <h3 class="class-card__title">Contemporary</h3>
+        <p class="class-card__desc">Freeform movement that emphasises personal expression, improvisation and physical awareness. No two sessions are alike.</p>
+        <ul class="class-card__meta">
+          <li>⏱ 60 min/session</li>
+          <li>📅 Fri evenings</li>
+          <li>👤 All levels</li>
+        </ul>
+        <a href="#enroll" class="btn btn--outline btn--sm" onclick="trackEnroll('Contemporary')">Enroll</a>
+      </article>
+
+      <article class="class-card class-card--detail" data-category="modern" onclick="trackCardClick('Hip-Hop')">
+        <div class="class-card__header">
+          <div class="class-card__icon">⚡</div>
+          <span class="class-card__tag">Modern</span>
+        </div>
+        <h3 class="class-card__title">Hip-Hop</h3>
+        <p class="class-card__desc">Street style, breaking and locking. Urban energy meets disciplined technique. Learn the culture behind the moves.</p>
+        <ul class="class-card__meta">
+          <li>⏱ 60 min/session</li>
+          <li>📅 Wed evenings</li>
+          <li>👤 Beginner–Intermediate</li>
+        </ul>
+        <a href="#enroll" class="btn btn--outline btn--sm" onclick="trackEnroll('Hip-Hop')">Enroll</a>
+      </article>
+
+      <article class="class-card class-card--detail" data-category="fusion" onclick="trackCardClick('Bollywood')">
+        <div class="class-card__header">
+          <div class="class-card__icon">★</div>
+          <span class="class-card__tag">Fusion</span>
+        </div>
+        <h3 class="class-card__title">Bollywood Fusion</h3>
+        <p class="class-card__desc">Energetic choreography drawn from Hindi film dance, Punjabi folk and jazz. High energy, big smiles, everyone welcome.</p>
+        <ul class="class-card__meta">
+          <li>⏱ 60 min/session</li>
+          <li>📅 Tue & Sat</li>
+          <li>👤 All levels</li>
+        </ul>
+        <a href="#enroll" class="btn btn--outline btn--sm" onclick="trackEnroll('Bollywood Fusion')">Enroll</a>
+      </article>
+
+      <article class="class-card class-card--detail" data-category="kids" onclick="trackCardClick('Kids Dance')">
+        <div class="class-card__header">
+          <div class="class-card__icon">🎈</div>
+          <span class="class-card__tag">Kids</span>
+        </div>
+        <h3 class="class-card__title">Little Movers (Age 4–10)</h3>
+        <p class="class-card__desc">A fun, imaginative introduction to movement and rhythm for young children. Builds coordination, confidence and joy.</p>
+        <ul class="class-card__meta">
+          <li>⏱ 45 min/session</li>
+          <li>📅 Sat & Sun mornings</li>
+          <li>👤 Ages 4–10</li>
+        </ul>
+        <a href="#enroll" class="btn btn--outline btn--sm" onclick="trackEnroll('Little Movers')">Enroll</a>
+      </article>
+
+      <article class="class-card class-card--detail" data-category="kids" onclick="trackCardClick('Teen Dance')">
+        <div class="class-card__header">
+          <div class="class-card__icon">🎵</div>
+          <span class="class-card__tag">Kids</span>
+        </div>
+        <h3 class="class-card__title">Teens in Motion (Age 11–17)</h3>
+        <p class="class-card__desc">A mixed-style class for teenagers exploring their identity through movement. Combines contemporary, hip-hop and Bollywood.</p>
+        <ul class="class-card__meta">
+          <li>⏱ 75 min/session</li>
+          <li>📅 Sun afternoons</li>
+          <li>👤 Ages 11–17</li>
+        </ul>
+        <a href="#enroll" class="btn btn--outline btn--sm" onclick="trackEnroll('Teens in Motion')">Enroll</a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ENROLL FORM -->
+  <section class="enroll section" id="enroll">
+    <div class="enroll__inner">
+      <span class="section__label">Get Started</span>
+      <h2 class="section__title">Book your first class.</h2>
+      <p>Your first trial class is free. No commitment required.</p>
+      <form class="enroll__form" onsubmit="trackFormSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="your@email.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" placeholder="+91 98765 43210" />
+          </div>
+          <div class="form-group">
+            <label for="age">Age Group</label>
+            <select id="age" onchange="trackDropdown('age_group', this.value)">
+              <option value="">Select age group</option>
+              <option>Child (4–10)</option>
+              <option>Teen (11–17)</option>
+              <option>Adult (18+)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="style">Preferred Dance Style</label>
+          <select id="style" onchange="trackDropdown('dance_style', this.value)">
+            <option value="">Choose a style</option>
+            <option>Bharatanatyam</option>
+            <option>Kathak</option>
+            <option>Odissi</option>
+            <option>Contemporary</option>
+            <option>Hip-Hop</option>
+            <option>Bollywood Fusion</option>
+            <option>Little Movers</option>
+            <option>Teens in Motion</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Anything you'd like us to know?</label>
+          <textarea id="message" rows="3" placeholder="Previous experience, questions, special requirements..."></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary btn--wide">Book My Free Trial Class</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__logo">Kalasheel</span>
+        <span class="footer__est">Established 2019</span>
+        <p>Rooted in tradition. Alive in movement.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <a href="../index.html">Home</a>
+        <a href="classes.html">Classes</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="footer__social">
+        <a href="#" aria-label="Instagram" onclick="trackSocial('Instagram')">Instagram</a>
+        <a href="#" aria-label="YouTube" onclick="trackSocial('YouTube')">YouTube</a>
+        <a href="#" aria-label="Facebook" onclick="trackSocial('Facebook')">Facebook</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024 Kalasheel Dance Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="../js/main.js"></script>
+</body>
+</html>

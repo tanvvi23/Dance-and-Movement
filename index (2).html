@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kalasheel — Dance & Movement</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Google tag (GA4) — replace G-XXXXXXXXXX with your Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="navbar">
+    <a href="index.html" class="nav__logo">
+      <span class="nav__logo-main">Kalasheel</span>
+      <span class="nav__logo-sub">est. 2019</span>
+    </a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu">&#9776;</button>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="index.html" class="nav__link active" onclick="trackNav('Home')">Home</a></li>
+      <li><a href="pages/classes.html" class="nav__link" onclick="trackNav('Classes')">Classes</a></li>
+      <li><a href="pages/about.html" class="nav__link" onclick="trackNav('About')">About</a></li>
+      <li><a href="pages/classes.html#enroll" class="nav__cta" onclick="trackNav('Enroll CTA Nav')">Join Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero__bg-text">MOVE</div>
+    <div class="hero__content">
+      <p class="hero__tagline">Where rhythm meets soul</p>
+      <h1 class="hero__title">Dance is the<br/><em>language</em> we<br/>were born speaking.</h1>
+      <p class="hero__sub">Classical & contemporary dance forms for all ages and skill levels. Established 2019, rooted in tradition, alive in the present.</p>
+      <div class="hero__actions">
+        <a href="pages/classes.html#enroll" class="btn btn--primary" onclick="trackCTA('hero_join_now')">Join a Class</a>
+        <button class="btn btn--ghost" onclick="openVideo()">
+          <span class="btn__play">&#9654;</span> Watch Our Story
+        </button>
+      </div>
+    </div>
+    <div class="hero__scroll">scroll</div>
+  </header>
+
+  <!-- VIDEO MODAL -->
+  <div class="modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="modal__backdrop" onclick="closeVideo()"></div>
+    <div class="modal__box">
+      <button class="modal__close" onclick="closeVideo()" aria-label="Close">&#10005;</button>
+      <div class="video-mock">
+        <div class="video-mock__screen">
+          <div class="video-mock__play" id="playIcon">&#9654;</div>
+          <p class="video-mock__label" id="videoStatus">Click play to watch</p>
+        </div>
+        <p class="video-mock__note">Mock video — replace with a real YouTube embed for production.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Bharatanatyam &nbsp;·&nbsp; Kathak &nbsp;·&nbsp; Contemporary &nbsp;·&nbsp; Bollywood &nbsp;·&nbsp; Hip-Hop &nbsp;·&nbsp; Classical Odissi &nbsp;·&nbsp; Folk &nbsp;·&nbsp; Freestyle &nbsp;·&nbsp;</span>
+      <span>Bharatanatyam &nbsp;·&nbsp; Kathak &nbsp;·&nbsp; Contemporary &nbsp;·&nbsp; Bollywood &nbsp;·&nbsp; Hip-Hop &nbsp;·&nbsp; Classical Odissi &nbsp;·&nbsp; Folk &nbsp;·&nbsp; Freestyle &nbsp;·&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ABOUT SNIPPET -->
+  <section class="about-snap section">
+    <div class="about-snap__text">
+      <span class="section__label">Our Story</span>
+      <h2 class="section__title">Born from a love<br/>of movement.</h2>
+      <p>Kalasheel was founded in 2019 with one belief: dance belongs to everyone. We blend ancient Indian classical forms with contemporary and urban styles, creating a home for dancers of every background.</p>
+      <a href="pages/about.html" class="btn btn--outline" onclick="trackCTA('about_learn_more')">Our Story</a>
+    </div>
+    <div class="about-snap__visual">
+      <div class="about-snap__card about-snap__card--1">
+        <span class="about-snap__stat">500+</span>
+        <span class="about-snap__stat-label">Students trained</span>
+      </div>
+      <div class="about-snap__card about-snap__card--2">
+        <span class="about-snap__stat">12</span>
+        <span class="about-snap__stat-label">Dance styles</span>
+      </div>
+      <div class="about-snap__card about-snap__card--3">
+        <span class="about-snap__stat">6</span>
+        <span class="about-snap__stat-label">Years running</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLASSES PREVIEW -->
+  <section class="classes-preview section">
+    <span class="section__label">What We Offer</span>
+    <h2 class="section__title">Find your form.</h2>
+    <div class="class-grid">
+
+      <article class="class-card" tabindex="0" onclick="trackCardClick('Bharatanatyam')">
+        <div class="class-card__icon">𝄞</div>
+        <h3 class="class-card__title">Bharatanatyam</h3>
+        <p class="class-card__desc">South Indian classical form rich in expression, geometry and devotion. Beginners welcome.</p>
+        <span class="class-card__tag">Classical</span>
+      </article>
+
+      <article class="class-card" tabindex="0" onclick="trackCardClick('Kathak')">
+        <div class="class-card__icon">✦</div>
+        <h3 class="class-card__title">Kathak</h3>
+        <p class="class-card__desc">Northern footwork, spins and storytelling. A dance of court poets and mystics.</p>
+        <span class="class-card__tag">Classical</span>
+      </article>
+
+      <article class="class-card" tabindex="0" onclick="trackCardClick('Contemporary')">
+        <div class="class-card__icon">◎</div>
+        <h3 class="class-card__title">Contemporary</h3>
+        <p class="class-card__desc">Freeform, expressive movement that breaks rules and finds new ones. All levels.</p>
+        <span class="class-card__tag">Modern</span>
+      </article>
+
+      <article class="class-card" tabindex="0" onclick="trackCardClick('Bollywood')">
+        <div class="class-card__icon">★</div>
+        <h3 class="class-card__title">Bollywood Fusion</h3>
+        <p class="class-card__desc">High-energy, joyful choreography blending film dance with folk and jazz.</p>
+        <span class="class-card__tag">Fusion</span>
+      </article>
+
+    </div>
+    <div class="classes-preview__cta">
+      <a href="pages/classes.html" class="btn btn--primary" onclick="trackCTA('view_all_classes')">View All Classes</a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials section">
+    <span class="section__label">From Our Students</span>
+    <h2 class="section__title">Words that move us.</h2>
+    <div class="testimonial-grid">
+      <blockquote class="testimonial">
+        <p>"Kalasheel changed how I see my own body. The teachers are patient, passionate and deeply knowledgeable."</p>
+        <cite>— Priya M., Bharatanatyam student</cite>
+      </blockquote>
+      <blockquote class="testimonial">
+        <p>"I came in knowing nothing. Three months later I performed on stage. That still doesn't feel real to me."</p>
+        <cite>— Rohan K., Contemporary batch</cite>
+      </blockquote>
+      <blockquote class="testimonial">
+        <p>"The energy here is unlike any studio I've been to. It feels like a community, not a class."</p>
+        <cite>— Ananya S., Bollywood Fusion</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter section">
+    <div class="newsletter__inner">
+      <h2 class="newsletter__title">Stay in the rhythm.</h2>
+      <p>Get class updates, performance dates and exclusive early enrollment. No spam, ever.</p>
+      <form class="newsletter__form" onsubmit="trackNewsletter(event)">
+        <input type="email" placeholder="Your email address" required class="newsletter__input" />
+        <button type="submit" class="btn btn--primary">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__logo">Kalasheel</span>
+        <span class="footer__est">Established 2019</span>
+        <p>Rooted in tradition. Alive in movement.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="pages/classes.html">Classes</a>
+        <a href="pages/about.html">About</a>
+      </nav>
+      <div class="footer__social">
+        <a href="#" aria-label="Instagram" onclick="trackSocial('Instagram')">Instagram</a>
+        <a href="#" aria-label="YouTube" onclick="trackSocial('YouTube')">YouTube</a>
+        <a href="#" aria-label="Facebook" onclick="trackSocial('Facebook')">Facebook</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024 Kalasheel Dance Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

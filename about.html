@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Kalasheel Dance Studio</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+
+  <nav class="nav" id="navbar">
+    <a href="../index.html" class="nav__logo">
+      <span class="nav__logo-main">Kalasheel</span>
+      <span class="nav__logo-sub">est. 2019</span>
+    </a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu">&#9776;</button>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="../index.html" class="nav__link" onclick="trackNav('Home')">Home</a></li>
+      <li><a href="classes.html" class="nav__link" onclick="trackNav('Classes')">Classes</a></li>
+      <li><a href="about.html" class="nav__link active" onclick="trackNav('About')">About</a></li>
+      <li><a href="classes.html#enroll" class="nav__cta" onclick="trackNav('Enroll CTA Nav')">Join Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <header class="page-hero page-hero--about">
+    <div class="page-hero__content">
+      <span class="section__label">Our Story</span>
+      <h1 class="page-hero__title">Art has no<br/><em>boundaries.</em></h1>
+      <p>Kalasheel was born from a simple, powerful idea: movement transforms lives.</p>
+    </div>
+  </header>
+
+  <!-- STORY -->
+  <section class="story section">
+    <div class="story__grid">
+      <div class="story__text">
+        <h2 class="section__title">Why we started.</h2>
+        <p>In 2019, a small group of dancers and teachers came together in Lucknow with a shared frustration: quality dance education was either inaccessible, unaffordable, or rooted in gatekeeping. Classical forms felt locked away in conservatories. Modern styles lacked depth.</p>
+        <p>Kalasheel — a Sanskrit-derived name meaning <em>"one who is skilled in the arts"</em> — was our answer. A studio that holds classical knowledge with reverence but opens its doors without condition.</p>
+        <p>Five years on, we have trained over 500 students, staged 30+ performances, and built a community that spans classical arangetrams and street dance battles alike.</p>
+      </div>
+      <div class="story__quote-block">
+        <blockquote class="story__quote">
+          <p>"We built Kalasheel because we believe every person has a dancer inside them. Our only job is to help them find it."</p>
+          <cite>— Founder, Kalasheel</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values section">
+    <span class="section__label">What We Stand For</span>
+    <h2 class="section__title">Our principles.</h2>
+    <div class="values-grid">
+      <div class="value-card" onclick="trackValueClick('Tradition')">
+        <div class="value-card__icon">𝄞</div>
+        <h3>Rooted in Tradition</h3>
+        <p>We teach classical forms with full rigour and respect for their origins, lineages and spiritual depth.</p>
+      </div>
+      <div class="value-card" onclick="trackValueClick('Inclusion')">
+        <div class="value-card__icon">◉</div>
+        <h3>Radically Inclusive</h3>
+        <p>Age, background, body type — none of it determines who can dance. Every student is met where they are.</p>
+      </div>
+      <div class="value-card" onclick="trackValueClick('Expression')">
+        <div class="value-card__icon">✦</div>
+        <h3>Personal Expression</h3>
+        <p>Technique is a vehicle, not a cage. We train students to inhabit forms, not just replicate them.</p>
+      </div>
+      <div class="value-card" onclick="trackValueClick('Community')">
+        <div class="value-card__icon">❋</div>
+        <h3>Community First</h3>
+        <p>Kalasheel is a place, a practice and a people. We celebrate together, grow together, perform together.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team section">
+    <span class="section__label">The Instructors</span>
+    <h2 class="section__title">Guided by masters.</h2>
+    <div class="team-grid">
+
+      <div class="team-card">
+        <div class="team-card__avatar">RP</div>
+        <h3 class="team-card__name">Revati Pillai</h3>
+        <span class="team-card__role">Bharatanatyam & Odissi</span>
+        <p>20 years of training under the Kalakshetra tradition. Performed at Madras Music Academy and national festivals.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-card__avatar">AK</div>
+        <h3 class="team-card__name">Arjun Khanna</h3>
+        <span class="team-card__role">Kathak & Contemporary</span>
+        <p>Trained under Pandit Birju Maharaj's lineage. Now bridges classical Kathak with contemporary movement research.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-card__avatar">MS</div>
+        <h3 class="team-card__name">Meera Sharma</h3>
+        <span class="team-card__role">Bollywood Fusion & Kids</span>
+        <p>Choreographer for stage and screen. Believes dance is most powerful when it creates pure, uninhibited joy.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-card__avatar">DV</div>
+        <h3 class="team-card__name">Dev Varma</h3>
+        <span class="team-card__role">Hip-Hop & Urban Styles</span>
+        <p>Grew up in the street dance scene in Delhi. Brings authentic hip-hop culture and technique to the studio.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline section">
+    <span class="section__label">Our Journey</span>
+    <h2 class="section__title">Five years of movement.</h2>
+    <div class="timeline__track">
+      <div class="timeline__item">
+        <span class="timeline__year">2019</span>
+        <div class="timeline__body">
+          <h3>Founded</h3>
+          <p>Kalasheel opens with 3 instructors and 40 students in a single studio space in Lucknow.</p>
+        </div>
+      </div>
+      <div class="timeline__item">
+        <span class="timeline__year">2020</span>
+        <div class="timeline__body">
+          <h3>Online During Lockdown</h3>
+          <p>Pandemic pivots Kalasheel to digital classes. Reaches students across 8 cities. Community grows stronger.</p>
+        </div>
+      </div>
+      <div class="timeline__item">
+        <span class="timeline__year">2021</span>
+        <div class="timeline__body">
+          <h3>First Annual Performance</h3>
+          <p>Tarangini — Kalasheel's first full-scale annual showcase. 120 performers, 600 audience members.</p>
+        </div>
+      </div>
+      <div class="timeline__item">
+        <span class="timeline__year">2023</span>
+        <div class="timeline__body">
+          <h3>Expanded to 12 Styles</h3>
+          <p>New instructors, new forms. Odissi, Folk, Breaking and Theatre Movement added to the programme.</p>
+        </div>
+      </div>
+      <div class="timeline__item">
+        <span class="timeline__year">2024</span>
+        <div class="timeline__body">
+          <h3>500+ Students Trained</h3>
+          <p>Kalasheel reaches a milestone. A new children's wing opens. The community keeps growing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <h2>Ready to find your form?</h2>
+    <p>Your first trial class is free. No experience required.</p>
+    <a href="classes.html#enroll" class="btn btn--primary" onclick="trackCTA('about_page_bottom_cta')">Book a Free Class</a>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__logo">Kalasheel</span>
+        <span class="footer__est">Established 2019</span>
+        <p>Rooted in tradition. Alive in movement.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <a href="../index.html">Home</a>
+        <a href="classes.html">Classes</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="footer__social">
+        <a href="#" aria-label="Instagram" onclick="trackSocial('Instagram')">Instagram</a>
+        <a href="#" aria-label="YouTube" onclick="trackSocial('YouTube')">YouTube</a>
+        <a href="#" aria-label="Facebook" onclick="trackSocial('Facebook')">Facebook</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024 Kalasheel Dance Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Classes | MOVÉ Dance Studio</title>
+  <!-- Google tag (gtag.js) — replace GA_MEASUREMENT_ID with your real ID -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+  </script> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a08;
+      --cream: #f0ebe0;
+      --gold: #c8a96e;
+      --rust: #b85c38;
+      --dim: #3a3830;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--cream); font-family: var(--font-display); overflow-x: hidden; cursor: none; }
+
+    .cursor { width: 10px; height: 10px; background: var(--gold); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+    .cursor-ring { width: 36px; height: 36px; border: 1px solid var(--gold); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: left 0.12s ease, top 0.12s ease; opacity: 0.6; }
+
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; background: linear-gradient(to bottom, rgba(10,10,8,0.95), transparent); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.8rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em; color: var(--cream); text-decoration: none; text-transform: uppercase; opacity: 0.75; transition: opacity 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 160px 48px 80px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse 60% 70% at 30% 60%, #1a1508, #0a0a08 70%);
+    }
+    .page-header-label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .page-header-title { font-size: clamp(3rem, 7vw, 7rem); font-weight: 300; line-height: 0.95; }
+    .page-header-title em { font-style: italic; color: var(--gold); }
+    .page-header-deco {
+      position: absolute; right: 48px; top: 50%; transform: translateY(-50%);
+      font-size: 18rem; font-weight: 600; color: rgba(200,169,110,0.04);
+      letter-spacing: -0.05em; line-height: 1; pointer-events: none;
+      font-family: var(--font-display);
+    }
+
+    /* FILTER BAR */
+    .filter-bar {
+      padding: 32px 48px;
+      border-bottom: 1px solid var(--dim);
+      display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+    }
+    .filter-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,235,224,0.4); margin-right: 8px; }
+    .filter-btn {
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 8px 18px; border: 1px solid var(--dim);
+      background: transparent; color: rgba(240,235,224,0.6);
+      cursor: none; transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); }
+
+    /* SCHEDULE TABLE */
+    .schedule-section { padding: 60px 48px; }
+    .schedule-section .section-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 32px; }
+    .schedule-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2px; }
+
+    .schedule-card {
+      background: #0f0f0c;
+      padding: 32px 28px;
+      border-left: 2px solid transparent;
+      transition: border-color 0.25s, background 0.25s;
+      cursor: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .schedule-card:hover { border-left-color: var(--gold); background: #141410; }
+    .schedule-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 1px; background: var(--dim);
+    }
+    .card-time { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 10px; }
+    .card-day { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(240,235,224,0.35); margin-bottom: 12px; }
+    .card-title { font-size: 1.45rem; font-weight: 600; margin-bottom: 6px; }
+    .card-instructor { font-size: 0.95rem; font-style: italic; color: rgba(240,235,224,0.55); margin-bottom: 16px; }
+    .card-meta { display: flex; gap: 16px; align-items: center; }
+    .card-level { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--dim); color: rgba(240,235,224,0.45); }
+    .card-spots { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; color: var(--rust); }
+    .card-book-btn {
+      margin-top: 20px; display: inline-block;
+      background: var(--gold); color: var(--bg);
+      border: none; padding: 10px 24px;
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+      cursor: none; transition: background 0.2s;
+      width: 100%;
+      text-align: center;
+    }
+    .card-book-btn:hover { background: var(--cream); }
+
+    /* PRICING */
+    .pricing-section {
+      padding: 80px 48px;
+      background: #0d0d0a;
+    }
+    .section-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .section-heading { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.1; margin-bottom: 48px; }
+    .section-heading em { font-style: italic; color: var(--gold); }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px; }
+    .pricing-card {
+      padding: 40px 32px;
+      border: 1px solid var(--dim);
+      position: relative;
+      transition: border-color 0.25s;
+    }
+    .pricing-card:hover { border-color: var(--gold); }
+    .pricing-card.featured { border-color: var(--gold); background: #141410; }
+    .pricing-badge {
+      position: absolute; top: -12px; left: 32px;
+      background: var(--gold); color: var(--bg);
+      font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 4px 12px;
+    }
+    .pricing-name { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(240,235,224,0.5); margin-bottom: 16px; }
+    .pricing-price { font-size: 3rem; font-weight: 300; line-height: 1; margin-bottom: 4px; }
+    .pricing-price sup { font-size: 1rem; vertical-align: super; color: var(--gold); }
+    .pricing-per { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: rgba(240,235,224,0.35); margin-bottom: 28px; }
+    .pricing-features { list-style: none; margin-bottom: 32px; }
+    .pricing-features li { font-size: 0.95rem; color: rgba(240,235,224,0.65); padding: 8px 0; border-bottom: 1px solid rgba(58,56,48,0.5); line-height: 1.4; }
+    .pricing-features li::before { content: '—  '; color: var(--gold); }
+    .pricing-cta {
+      width: 100%; padding: 14px;
+      font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      cursor: none; transition: all 0.2s;
+      border: 1px solid var(--gold); background: transparent; color: var(--gold);
+    }
+    .pricing-cta:hover, .pricing-card.featured .pricing-cta { background: var(--gold); color: var(--bg); }
+
+    /* FAQ ACCORDION */
+    .faq-section { padding: 80px 48px; max-width: 800px; }
+    .faq-item { border-bottom: 1px solid var(--dim); }
+    .faq-question {
+      width: 100%; background: none; border: none;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 0;
+      font-family: var(--font-display); font-size: 1.15rem; color: var(--cream);
+      cursor: none; text-align: left;
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: var(--gold); }
+    .faq-question .faq-icon { font-size: 1.4rem; color: var(--gold); transition: transform 0.3s; line-height: 1; }
+    .faq-question.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      overflow: hidden; max-height: 0; transition: max-height 0.35s ease;
+    }
+    .faq-answer p { font-size: 0.97rem; line-height: 1.7; color: rgba(240,235,224,0.65); padding-bottom: 24px; }
+
+    footer { padding: 48px 48px 32px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; border-top: 1px solid var(--dim); }
+    .footer-logo { font-size: 1.5rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); }
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,235,224,0.45); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: rgba(240,235,224,0.3); }
+
+    /* Modal (same as index) */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(10,10,8,0.9); z-index: 500; align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal-box { background: #141410; border: 1px solid var(--dim); padding: 48px; max-width: 480px; width: 90%; position: relative; }
+    .modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 1.4rem; color: var(--cream); cursor: none; opacity: 0.5; }
+    .modal-close:hover { opacity: 1; }
+    .modal-title { font-size: 2rem; font-weight: 300; margin-bottom: 8px; }
+    .modal-title em { font-style: italic; color: var(--gold); }
+    .modal-sub { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(240,235,224,0.5); margin-bottom: 28px; }
+    .modal-field { margin-bottom: 16px; }
+    .modal-field label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 6px; }
+    .modal-field input, .modal-field select { width: 100%; background: #0a0a08; border: 1px solid var(--dim); padding: 12px 16px; color: var(--cream); font-family: var(--font-display); font-size: 1rem; outline: none; transition: border-color 0.2s; }
+    .modal-field input:focus, .modal-field select:focus { border-color: var(--gold); }
+    .modal-field select option { background: #0a0a08; }
+    .modal-submit { width: 100%; margin-top: 24px; background: var(--gold); color: var(--bg); border: none; padding: 16px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; cursor: none; transition: background 0.2s; }
+    .modal-submit:hover { background: var(--cream); }
+    .modal-success { display: none; text-align: center; padding: 32px 0; }
+    .modal-success .check { font-size: 3rem; margin-bottom: 12px; }
+    .modal-success p { font-size: 1.2rem; font-style: italic; color: var(--gold); }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">MOVÉ</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="classes.html" class="active">Classes</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <p class="page-header-label">This Week's Schedule</p>
+  <h1 class="page-header-title">Our<br><em>Classes</em></h1>
+  <div class="page-header-deco">移</div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Filter by:</span>
+  <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+  <button class="filter-btn" onclick="filterCards('beginner', this)">Beginner</button>
+  <button class="filter-btn" onclick="filterCards('intermediate', this)">Intermediate</button>
+  <button class="filter-btn" onclick="filterCards('advanced', this)">Advanced</button>
+</div>
+
+<!-- SCHEDULE -->
+<section class="schedule-section">
+  <p class="section-label">Weekly Classes</p>
+  <div class="schedule-grid" id="scheduleGrid">
+
+    <div class="schedule-card" data-level="beginner">
+      <div class="card-day">Monday</div>
+      <div class="card-time">07:00 – 08:30 AM</div>
+      <div class="card-title">Morning Contemporary</div>
+      <div class="card-instructor">with Neha Arora</div>
+      <div class="card-meta">
+        <span class="card-level">Beginner</span>
+        <span class="card-spots">4 spots left</span>
+      </div>
+      <button class="card-book-btn" onclick="openModal('Morning Contemporary')">Reserve Spot</button>
+    </div>
+
+    <div class="schedule-card" data-level="intermediate">
+      <div class="card-day">Tuesday</div>
+      <div class="card-time">06:30 – 08:00 PM</div>
+      <div class="card-title">Kathak Intensive</div>
+      <div class="card-instructor">with Rajan Mishra</div>
+      <div class="card-meta">
+        <span class="card-level">Intermediate</span>
+        <span class="card-spots">2 spots left</span>
+      </div>
+      <button class="card-book-btn" onclick="openModal('Kathak Intensive')">Reserve Spot</button>
+    </div>
+
+    <div class="schedule-card" data-level="beginner">
+      <div class="card-day">Wednesday</div>
+      <div class="card-time">07:00 – 08:30 PM</div>
+      <div class="card-title">Afrobeats Open</div>
+      <div class="card-instructor">with Amaka Obi</div>
+      <div class="card-meta">
+        <span class="card-level">Beginner</span>
+        <span class="card-spots">8 spots left</span>
+      </div>
+      <button class="card-book-btn" onclick="openModal('Afrobeats Open')">Reserve Spot</button>
+    </div>
+
+    <div class="schedule-card" data-level="advanced">
+      <div class="card-day">Thursday</div>
+      <div class="card-time">08:00 – 09:30 PM</div>
+      <div class="card-title">Hip-Hop Cypher</div>
+      <div class="card-instructor">with DJ Prateek</div>
+      <div class="card-meta">
+        <span class="card-level">Advanced</span>
+        <span class="card-spots">6 spots left</span>
+      </div>
+      <button class="card-book-btn" onclick="openModal('Hip-Hop Cypher')">Reserve Spot</button>
+    </div>
+
+    <div class="schedule-card" data-level="beginner">
+      <div class="card-day">Saturday</div>
+      <div class="card-time">09:00 – 10:30 AM</div>
+      <div class="card-title">Bollywood Fusion</div>
+      <div class="card-instructor">with Simran Kaur</div>
+      <div class="card-meta">
+        <span class="card-level">Beginner</span>
+        <span class="card-spots">10 spots left</span>
+      </div>
+      <button class="card-book-btn" onclick="openModal('Bollywood Fusion')">Reserve Spot</button>
+    </div>
+
+    <div class="schedule-card" data-level="intermediate">
+      <div class="card-day">Saturday</div>
+      <div class="card-time">11:30 AM – 01:00 PM</div>
+      <div class="card-title">Contemporary Lab</div>
+      <div class="card-instructor">with Neha Arora</div>
+      <div class="card-meta">
+        <span class="card-level">Intermediate</span>
+        <span class="card-spots">5 spots left</span>
+      </div>
+      <button class="card-book-btn" onclick="openModal('Contemporary Lab')">Reserve Spot</button>
+    </div>
+
+    <div class="schedule-card" data-level="beginner">
+      <div class="card-day">Sunday</div>
+      <div class="card-time">10:00 AM – 11:00 AM</div>
+      <div class="card-title">Kids Dance (Age 6–12)</div>
+      <div class="card-instructor">with Priya Nair</div>
+      <div class="card-meta">
+        <span class="card-level">Beginner</span>
+        <span class="card-spots">3 spots left</span>
+      </div>
+      <button class="card-book-btn" onclick="openModal('Kids Dance')">Reserve Spot</button>
+    </div>
+
+    <div class="schedule-card" data-level="advanced">
+      <div class="card-day">Sunday</div>
+      <div class="card-time">04:00 – 06:00 PM</div>
+      <div class="card-title">Kathak Masterclass</div>
+      <div class="card-instructor">with Rajan Mishra</div>
+      <div class="card-meta">
+        <span class="card-level">Advanced</span>
+        <span class="card-spots">1 spot left</span>
+      </div>
+      <button class="card-book-btn" onclick="openModal('Kathak Masterclass')">Reserve Spot</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section">
+  <p class="section-label">Membership</p>
+  <h2 class="section-heading">Simple, <em>honest</em> pricing</h2>
+  <div class="pricing-grid">
+
+    <div class="pricing-card">
+      <div class="pricing-name">Drop-In</div>
+      <div class="pricing-price"><sup>₹</sup>499</div>
+      <div class="pricing-per">per class</div>
+      <ul class="pricing-features">
+        <li>Any single class</li>
+        <li>No commitment</li>
+        <li>Mat provided</li>
+      </ul>
+      <button class="pricing-cta" onclick="trackPricingClick('drop-in')">Get Started</button>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="pricing-name">Monthly</div>
+      <div class="pricing-price"><sup>₹</sup>1,999</div>
+      <div class="pricing-per">per month · 8 classes</div>
+      <ul class="pricing-features">
+        <li>8 classes / month</li>
+        <li>Priority booking</li>
+        <li>Workshop discounts</li>
+        <li>Guest passes (2/month)</li>
+      </ul>
+      <button class="pricing-cta" onclick="trackPricingClick('monthly')">Join Monthly</button>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-name">Unlimited</div>
+      <div class="pricing-price"><sup>₹</sup>3,499</div>
+      <div class="pricing-per">per month · unlimited</div>
+      <ul class="pricing-features">
+        <li>Unlimited classes</li>
+        <li>First booking window</li>
+        <li>Free workshops</li>
+        <li>1:1 session / quarter</li>
+      </ul>
+      <button class="pricing-cta" onclick="trackPricingClick('unlimited')">Go Unlimited</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <p class="section-label">Questions</p>
+  <h2 class="section-heading">FAQ</h2>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFAQ(this)">
+      Do I need any experience to join?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer"><p>Not at all. Most of our classes have beginner sections, and our instructors are trained to work with all levels simultaneously. The only requirement is showing up.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFAQ(this)">
+      What should I wear?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer"><p>Comfortable clothing you can move in freely. Bare feet or dance shoes for contemporary and Kathak; clean trainers for Hip-Hop and Afrobeats. No jeans.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFAQ(this)">
+      Can I try before committing to a membership?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer"><p>Yes — your first class is always free. Book via the button on any class card or the homepage. No credit card required.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFAQ(this)">
+      How do I cancel or reschedule a booking?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer"><p>Email us at hello@movedance.in at least 6 hours before class and we'll happily reschedule. Late cancellations on paid classes use one credit from your pack.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">MOVÉ</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="classes.html">Classes</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 MOVÉ Studio · Lucknow</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h2 class="modal-title">Book a <em>Spot</em></h2>
+    <p class="modal-sub" id="modalClassName">Select a class</p>
+    <div id="modalForm">
+      <div class="modal-field"><label>Your Name</label><input type="text" id="bookName" placeholder="Ananya Sharma" /></div>
+      <div class="modal-field"><label>Email Address</label><input type="email" id="bookEmail" placeholder="ananya@email.com" /></div>
+      <button class="modal-submit" onclick="submitBooking()">Confirm My Spot</button>
+    </div>
+    <div class="modal-success" id="modalSuccess">
+      <div class="check">✦</div>
+      <p>You're booked! See you on the floor.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
+  });
+
+  function ga_event(name, params) {
+    if (typeof gtag !== 'undefined') gtag('event', name, params || {});
+    else console.log('[GA Event]', name, params);
+  }
+
+  let currentClass = '';
+  function openModal(cls) {
+    currentClass = cls;
+    document.getElementById('modalClassName').textContent = cls;
+    document.getElementById('bookingModal').classList.add('open');
+    document.getElementById('modalForm').style.display = 'block';
+    document.getElementById('modalSuccess').style.display = 'none';
+    ga_event('begin_booking', { class_name: cls, source: 'schedule_card' });
+  }
+  function closeModal() { document.getElementById('bookingModal').classList.remove('open'); }
+  document.getElementById('bookingModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+
+  function submitBooking() {
+    ga_event('booking_submitted', { class_name: currentClass });
+    document.getElementById('modalForm').style.display = 'none';
+    document.getElementById('modalSuccess').style.display = 'block';
+  }
+
+  function filterCards(level, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cards = document.querySelectorAll('.schedule-card');
+    cards.forEach(c => {
+      c.style.display = (level === 'all' || c.dataset.level === level) ? 'block' : 'none';
+    });
+    ga_event('filter_classes', { filter_level: level });
+  }
+
+  function trackPricingClick(plan) {
+    ga_event('pricing_cta_click', { plan_name: plan });
+    openModal('Membership: ' + plan);
+  }
+
+  function toggleFAQ(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.classList.remove('open');
+      q.nextElementSibling.style.maxHeight = '0';
+    });
+    if (!isOpen) {
+      btn.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+      ga_event('faq_expanded', { question: btn.textContent.trim().replace('+','').trim() });
+    }
+  }
+</script>
+</body>
+</html>

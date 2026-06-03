@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MOVÉ | Dance Studio</title>
+  <!-- Google tag (gtag.js) — replace GA_MEASUREMENT_ID with your real ID -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+  </script> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a08;
+      --cream: #f0ebe0;
+      --gold: #c8a96e;
+      --rust: #b85c38;
+      --dim: #3a3830;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: var(--font-display);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      width: 10px; height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, width 0.2s, height 0.2s;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: left 0.12s ease, top 0.12s ease, transform 0.15s ease;
+      opacity: 0.6;
+    }
+    a:hover ~ .cursor, button:hover ~ .cursor { transform: translate(-50%,-50%) scale(3); }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 48px;
+      background: linear-gradient(to bottom, rgba(10,10,8,0.95), transparent);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--cream);
+      text-decoration: none;
+      text-transform: uppercase;
+      opacity: 0.75;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 120px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 60% 40%, #1a1508 0%, #0a0a08 70%);
+    }
+    .hero-grain {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .hero-line {
+      position: absolute; left: 48px; top: 50%;
+      width: 1px; height: 180px; background: var(--gold);
+      transform: translateY(-50%) scaleY(0);
+      transform-origin: top;
+      animation: lineReveal 1.2s 0.4s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    }
+    @keyframes lineReveal { to { transform: translateY(-50%) scaleY(1); } }
+
+    .hero-content { position: relative; z-index: 1; margin-left: 80px; }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s ease forwards;
+    }
+    .hero-title {
+      font-size: clamp(4rem, 10vw, 9rem);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      margin: 16px 0 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.8s ease forwards;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+      font-size: 1.25rem;
+      font-weight: 300;
+      max-width: 460px;
+      line-height: 1.6;
+      opacity: 0;
+      color: rgba(240,235,224,0.7);
+      animation: fadeUp 0.9s 1s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-cta-row {
+      margin-top: 48px;
+      display: flex; gap: 20px; align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.9s 1.2s ease forwards;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--bg);
+      border: none;
+      padding: 16px 40px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--cream); transform: translateY(-2px); }
+    .btn-ghost {
+      border: 1px solid rgba(200,169,110,0.4);
+      color: var(--cream);
+      padding: 16px 40px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    /* SCROLL TICKER */
+    .ticker {
+      background: var(--gold);
+      padding: 12px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-block;
+      animation: ticker 22s linear infinite;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--bg);
+    }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ABOUT STRIP */
+    .about-strip {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; min-height: 70vh;
+    }
+    .about-img-col {
+      background: var(--dim);
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .figure-silhouette {
+      width: 220px; height: 400px;
+      position: relative;
+    }
+    .about-text-col {
+      padding: 80px 64px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .section-heading {
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .section-heading em { font-style: italic; color: var(--gold); }
+    .section-body {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(240,235,224,0.72);
+      max-width: 420px;
+      margin-bottom: 36px;
+    }
+
+    /* CLASSES GRID */
+    .classes-section { padding: 100px 48px; }
+    .classes-section .section-label { text-align: center; margin-bottom: 16px; }
+    .classes-section .section-heading { text-align: center; margin-bottom: 56px; }
+    .classes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+    }
+    .class-card {
+      background: #111109;
+      padding: 40px 32px;
+      border-top: 1px solid var(--dim);
+      transition: background 0.3s, border-color 0.3s;
+      cursor: none;
+    }
+    .class-card:hover { background: #181610; border-top-color: var(--gold); }
+    .class-icon {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .class-name {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .class-desc {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: rgba(240,235,224,0.6);
+      margin-bottom: 20px;
+    }
+    .class-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* VIDEO SECTION */
+    .video-section {
+      padding: 80px 48px;
+      background: #0e0e0b;
+    }
+    .video-section .section-label { margin-bottom: 16px; }
+    .video-section .section-heading { margin-bottom: 40px; max-width: 500px; }
+    .video-wrapper {
+      position: relative;
+      width: 100%; max-width: 860px;
+      aspect-ratio: 16/9;
+      background: #1a1a14;
+      overflow: hidden;
+      cursor: none;
+    }
+    .video-thumb {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #1a1508, #0f0e0a);
+      position: relative;
+    }
+    .video-play-btn {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: none;
+      transition: transform 0.2s, background 0.2s;
+      position: absolute;
+      z-index: 2;
+    }
+    .video-play-btn:hover { transform: scale(1.1); background: var(--cream); }
+    .video-play-btn svg { margin-left: 4px; }
+    .video-overlay-text {
+      position: absolute;
+      bottom: 24px; left: 24px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(240,235,224,0.5);
+      z-index: 2;
+    }
+    /* fake iframe shown after click */
+    .video-iframe-container {
+      display: none;
+      width: 100%; height: 100%;
+      position: absolute; inset: 0;
+    }
+    .video-iframe-container iframe {
+      width: 100%; height: 100%; border: none;
+    }
+
+    /* TESTIMONIAL */
+    .testimonial-section {
+      padding: 100px 48px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .testimonial-quote {
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.45;
+      border-left: 2px solid var(--gold);
+      padding-left: 32px;
+    }
+    .testimonial-author {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 24px;
+    }
+
+    /* NEWSLETTER */
+    .newsletter-section {
+      background: var(--gold);
+      padding: 80px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .newsletter-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--bg);
+      line-height: 1.15;
+    }
+    .newsletter-heading em { font-style: italic; }
+    .newsletter-form { display: flex; gap: 0; flex: 1; max-width: 480px; }
+    .newsletter-input {
+      flex: 1;
+      background: transparent;
+      border: 1px solid var(--bg);
+      border-right: none;
+      padding: 14px 20px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--bg);
+      outline: none;
+      letter-spacing: 0.1em;
+    }
+    .newsletter-input::placeholder { color: rgba(10,10,8,0.5); }
+    .newsletter-btn {
+      background: var(--bg);
+      color: var(--gold);
+      border: 1px solid var(--bg);
+      padding: 14px 28px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .newsletter-btn:hover { background: var(--rust); border-color: var(--rust); color: var(--cream); }
+
+    /* FOOTER */
+    footer {
+      padding: 48px 48px 32px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 24px;
+      border-top: 1px solid var(--dim);
+    }
+    .footer-logo { font-size: 1.5rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); }
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,235,224,0.45); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: rgba(240,235,224,0.3); }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(10,10,8,0.9);
+      z-index: 500;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #141410;
+      border: 1px solid var(--dim);
+      padding: 48px;
+      max-width: 480px; width: 90%;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 20px;
+      background: none; border: none;
+      font-size: 1.4rem; color: var(--cream); cursor: none; opacity: 0.5;
+    }
+    .modal-close:hover { opacity: 1; }
+    .modal-title { font-size: 2rem; font-weight: 300; margin-bottom: 8px; }
+    .modal-title em { font-style: italic; color: var(--gold); }
+    .modal-sub { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(240,235,224,0.5); margin-bottom: 28px; }
+    .modal-field { margin-bottom: 16px; }
+    .modal-field label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 6px; }
+    .modal-field input, .modal-field select {
+      width: 100%;
+      background: #0a0a08;
+      border: 1px solid var(--dim);
+      padding: 12px 16px;
+      color: var(--cream);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .modal-field input:focus, .modal-field select:focus { border-color: var(--gold); }
+    .modal-field select option { background: #0a0a08; }
+    .modal-submit {
+      width: 100%; margin-top: 24px;
+      background: var(--gold); color: var(--bg);
+      border: none; padding: 16px;
+      font-family: var(--font-mono); font-size: 0.72rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      cursor: none; transition: background 0.2s;
+    }
+    .modal-submit:hover { background: var(--cream); }
+    .modal-success { display: none; text-align: center; padding: 32px 0; }
+    .modal-success .check { font-size: 3rem; margin-bottom: 12px; }
+    .modal-success p { font-size: 1.2rem; font-style: italic; color: var(--gold); }
+
+    /* Dance figure SVG animation */
+    @keyframes sway {
+      0%,100% { transform: rotate(-3deg) translateX(0); }
+      50% { transform: rotate(3deg) translateX(8px); }
+    }
+    .dancer-svg { animation: sway 3s ease-in-out infinite; transform-origin: bottom center; }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">MOVÉ</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="classes.html">Classes</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Est. 2019 · Lucknow</p>
+    <h1 class="hero-title">Find your<br><em>rhythm</em><br>again.</h1>
+    <p class="hero-sub">A dance studio for those who believe movement is medicine. Contemporary, Kathak, and Afrobeats — every body welcome.</p>
+    <div class="hero-cta-row">
+      <button class="btn-primary" id="heroBookBtn" onclick="openModal('hero-cta-click')">Book a Free Class</button>
+      <a href="classes.html" class="btn-ghost">See Schedule →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <span class="ticker-inner">
+    &nbsp; Contemporary &nbsp;·&nbsp; Kathak &nbsp;·&nbsp; Afrobeats &nbsp;·&nbsp; Bollywood Fusion &nbsp;·&nbsp; Ballet &nbsp;·&nbsp; Hip-Hop &nbsp;·&nbsp; Contemporary &nbsp;·&nbsp; Kathak &nbsp;·&nbsp; Afrobeats &nbsp;·&nbsp; Bollywood Fusion &nbsp;·&nbsp; Ballet &nbsp;·&nbsp; Hip-Hop &nbsp;·&nbsp;
+    &nbsp; Contemporary &nbsp;·&nbsp; Kathak &nbsp;·&nbsp; Afrobeats &nbsp;·&nbsp; Bollywood Fusion &nbsp;·&nbsp; Ballet &nbsp;·&nbsp; Hip-Hop &nbsp;·&nbsp; Contemporary &nbsp;·&nbsp; Kathak &nbsp;·&nbsp; Afrobeats &nbsp;·&nbsp; Bollywood Fusion &nbsp;·&nbsp; Ballet &nbsp;·&nbsp; Hip-Hop &nbsp;·&nbsp;
+  </span>
+</div>
+
+<!-- ABOUT -->
+<section class="about-strip">
+  <div class="about-img-col">
+    <!-- Animated dancer SVG -->
+    <svg class="dancer-svg" width="160" height="360" viewBox="0 0 160 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Head -->
+      <circle cx="80" cy="32" r="22" fill="#c8a96e" opacity="0.9"/>
+      <!-- Body -->
+      <path d="M80 54 Q60 120 50 180" stroke="#c8a96e" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M80 54 Q100 120 110 180" stroke="#c8a96e" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <!-- Arms raised -->
+      <path d="M60 90 Q30 60 10 40" stroke="#c8a96e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M100 90 Q130 60 150 35" stroke="#c8a96e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <!-- Skirt/flow -->
+      <path d="M50 180 Q30 260 20 330" stroke="#c8a96e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M50 180 Q60 260 70 330" stroke="#c8a96e" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M110 180 Q100 260 90 330" stroke="#c8a96e" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M110 180 Q130 260 140 330" stroke="#c8a96e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="about-text-col">
+    <p class="section-label">Our Philosophy</p>
+    <h2 class="section-heading">Dance is not a<br>performance. It's a<br><em>conversation.</em></h2>
+    <p class="section-body">At MOVÉ, we strip away the ego and get back to the body. Our instructors weave together classical Indian forms, African roots, and contemporary movement — creating a space where technique meets intuition.</p>
+    <a href="classes.html" class="btn-ghost" style="align-self:flex-start">Explore Classes</a>
+  </div>
+</section>
+
+<!-- CLASSES PREVIEW -->
+<section class="classes-section">
+  <p class="section-label">What We Offer</p>
+  <h2 class="section-heading">Classes for <em>every</em> level</h2>
+  <div class="classes-grid">
+    <div class="class-card" onclick="trackClassClick('Contemporary')">
+      <span class="class-icon">🌊</span>
+      <div class="class-name">Contemporary</div>
+      <p class="class-desc">Fluid, expressive movement rooted in modern and post-modern techniques. Explore emotion through the body.</p>
+      <span class="class-tag">All Levels</span>
+    </div>
+    <div class="class-card" onclick="trackClassClick('Kathak')">
+      <span class="class-icon">🪷</span>
+      <div class="class-name">Kathak</div>
+      <p class="class-desc">North India's classical dance of storytelling — intricate footwork, graceful spins, expressive gesture.</p>
+      <span class="class-tag">Beginner – Advanced</span>
+    </div>
+    <div class="class-card" onclick="trackClassClick('Afrobeats')">
+      <span class="class-icon">🥁</span>
+      <div class="class-name">Afrobeats</div>
+      <p class="class-desc">High-energy, rhythm-driven movement. Ground yourself in the music and let the body follow.</p>
+      <span class="class-tag">Open Level</span>
+    </div>
+    <div class="class-card" onclick="trackClassClick('Hip-Hop')">
+      <span class="class-icon">🎧</span>
+      <div class="class-name">Hip-Hop</div>
+      <p class="class-desc">Breaking, locking, popping — rooted in street dance culture, taught with respect for the form.</p>
+      <span class="class-tag">Beginner Friendly</span>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO SECTION -->
+<section class="video-section">
+  <p class="section-label">Watch Us Move</p>
+  <h2 class="section-heading">See what <em>happens</em><br>in our studio</h2>
+  <div class="video-wrapper" id="videoWrapper">
+    <div class="video-thumb" id="videoThumb">
+      <!-- Abstract background lines to suggest movement -->
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.15" viewBox="0 0 860 480" preserveAspectRatio="xMidYMid slice">
+        <line x1="0" y1="240" x2="860" y2="180" stroke="#c8a96e" stroke-width="1"/>
+        <line x1="0" y1="300" x2="860" y2="100" stroke="#c8a96e" stroke-width="0.5"/>
+        <line x1="200" y1="0" x2="400" y2="480" stroke="#c8a96e" stroke-width="0.5"/>
+        <line x1="500" y1="0" x2="200" y2="480" stroke="#c8a96e" stroke-width="0.5"/>
+        <circle cx="430" cy="240" r="120" stroke="#c8a96e" stroke-width="0.5" fill="none"/>
+        <circle cx="430" cy="240" r="200" stroke="#c8a96e" stroke-width="0.3" fill="none"/>
+      </svg>
+      <button class="video-play-btn" id="videoPlayBtn" onclick="playVideo()">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none">
+          <path d="M2 2L20 13L2 24V2Z" fill="#0a0a08"/>
+        </svg>
+      </button>
+      <span class="video-overlay-text">Studio Session · Summer 2024</span>
+    </div>
+    <div class="video-iframe-container" id="videoIframe">
+      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial-section">
+  <div>
+    <p class="section-label">Voices</p>
+    <p style="font-family:var(--font-mono);font-size:0.62rem;color:rgba(240,235,224,0.3);letter-spacing:0.15em;margin-top:8px;">01 / 03</p>
+  </div>
+  <div>
+    <blockquote class="testimonial-quote">
+      "I came in with two left feet and left knowing my whole body. MOVÉ didn't just teach me to dance — it taught me to listen."
+    </blockquote>
+    <p class="testimonial-author">— Priya S. · Contemporary Student</p>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div>
+    <h3 class="newsletter-heading">Stay in the<br><em>loop.</em></h3>
+  </div>
+  <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+    <input class="newsletter-input" type="email" id="nlEmail" placeholder="your@email.com" required />
+    <button class="newsletter-btn" type="submit">Subscribe</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MOVÉ</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="classes.html">Classes</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 MOVÉ Studio · Lucknow</p>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h2 class="modal-title">Book a <em>Free</em> Class</h2>
+    <p class="modal-sub">First session on us — no strings attached</p>
+    <div id="modalForm">
+      <div class="modal-field">
+        <label>Your Name</label>
+        <input type="text" id="bookName" placeholder="Ananya Sharma" />
+      </div>
+      <div class="modal-field">
+        <label>Email Address</label>
+        <input type="email" id="bookEmail" placeholder="ananya@email.com" />
+      </div>
+      <div class="modal-field">
+        <label>Preferred Class</label>
+        <select id="bookClass">
+          <option value="">Select a class…</option>
+          <option>Contemporary</option>
+          <option>Kathak</option>
+          <option>Afrobeats</option>
+          <option>Hip-Hop</option>
+        </select>
+      </div>
+      <button class="modal-submit" onclick="submitBooking()">Confirm My Spot</button>
+    </div>
+    <div class="modal-success" id="modalSuccess">
+      <div class="check">✦</div>
+      <p>You're booked! See you on the floor.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // --- Custom cursor ---
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
+  });
+
+  // --- GA Helper ---
+  function ga_event(name, params) {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', name, params || {});
+    } else {
+      console.log('[GA Event]', name, params);
+    }
+  }
+
+  // --- Modal ---
+  function openModal(source) {
+    document.getElementById('bookingModal').classList.add('open');
+    ga_event('begin_booking', { source: source });
+  }
+  function closeModal() {
+    document.getElementById('bookingModal').classList.remove('open');
+    document.getElementById('modalForm').style.display = 'block';
+    document.getElementById('modalSuccess').style.display = 'none';
+  }
+  document.getElementById('bookingModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  function submitBooking() {
+    const cls = document.getElementById('bookClass').value;
+    ga_event('booking_submitted', {
+      class_name: cls,
+      method: 'modal_form'
+    });
+    document.getElementById('modalForm').style.display = 'none';
+    document.getElementById('modalSuccess').style.display = 'block';
+  }
+
+  // --- Class card click tracking ---
+  function trackClassClick(className) {
+    ga_event('class_card_click', { class_name: className });
+  }
+
+  // --- Video play ---
+  function playVideo() {
+    document.getElementById('videoThumb').style.display = 'none';
+    document.getElementById('videoIframe').style.display = 'block';
+    ga_event('video_play', { video_title: 'Studio Session Summer 2024' });
+  }
+
+  // --- Newsletter ---
+  function subscribeNewsletter(e) {
+    e.preventDefault();
+    const email = document.getElementById('nlEmail').value;
+    ga_event('newsletter_signup', { email_domain: email.split('@')[1] });
+    alert('Thank you for subscribing!');
+    document.getElementById('nlEmail').value = '';
+  }
+</script>
+</body>
+</html>
